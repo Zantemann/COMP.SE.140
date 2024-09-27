@@ -1,0 +1,6 @@
+- The used LLM tools: Chat GPT-4
+- Motivation/reason to use LLM: To review, correct typos and improve formatting in English.
+
+- How and why LLM helped: It reviewed the text and suggested improvements.
+- What kind of mistakes LLM did: Some irrelevant suggestions were provided.
+- What were things that LLM was not able to provide: Generate entirely new text that is accurate based on my project.

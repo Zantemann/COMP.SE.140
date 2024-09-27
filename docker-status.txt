@@ -1,0 +1,12 @@
+C:\Users\Omistaja\devOps\COMP.SE.140>docker container ls
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                    NAMES
+6f340881a0dc   service1_image   "python index.py"        33 seconds ago   Up 30 seconds   0.0.0.0:8199->8199/tcp   compse140-service1-1
+1c1ad3593ed1   service2_image   "docker-entrypoint.s…"   33 seconds ago   Up 31 seconds                            compse140-service2-1
+
+C:\Users\Omistaja\devOps\COMP.SE.140>docker network ls
+NETWORK ID     NAME                     DRIVER    SCOPE
+48858529295c   backend_rabbit-network   bridge    local
+bbf1034d3f0e   bridge                   bridge    local
+92b0449c8194   compse140_default        bridge    local
+fe91341872c9   host                     host      local
+12ed9c79af88   none                     null      local

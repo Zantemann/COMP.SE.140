@@ -1,6 +1,7 @@
 services:
   service1:
     build: ./service1
+    image: service1_image
     ports:
       - "8199:8199"
     depends_on:
@@ -8,3 +9,4 @@ services:
 
   service2:
     build: ./service2
+    image: service2_image
