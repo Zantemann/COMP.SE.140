@@ -1,12 +1,14 @@
 C:\Users\Omistaja\devOps\COMP.SE.140>docker container ls
-CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                    NAMES
-6f340881a0dc   service1_image   "python index.py"        33 seconds ago   Up 30 seconds   0.0.0.0:8199->8199/tcp   compse140-service1-1
-1c1ad3593ed1   service2_image   "docker-entrypoint.s…"   33 seconds ago   Up 31 seconds                            compse140-service2-1
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                            NAMES
+3fe4aea5b6e9   nginx_image      "/usr/local/bin/shar…"   13 minutes ago   Up 13 minutes   80/tcp, 0.0.0.0:8198->8198/tcp   compse140-nginx-1
+0952a5026fe4   service1_image   "/usr/local/bin/shar…"   13 minutes ago   Up 13 minutes                                    compse140-service1-2
+094cf077a500   service1_image   "/usr/local/bin/shar…"   13 minutes ago   Up 13 minutes                                    compse140-service1-1
+c1b081ababa6   service1_image   "/usr/local/bin/shar…"   13 minutes ago   Up 13 minutes                                    compse140-service1-3
+4107345bb357   service2_image   "/usr/local/bin/shar…"   13 minutes ago   Up 13 minutes                                    compse140-service2-1
 
 C:\Users\Omistaja\devOps\COMP.SE.140>docker network ls
-NETWORK ID     NAME                     DRIVER    SCOPE
-48858529295c   backend_rabbit-network   bridge    local
-bbf1034d3f0e   bridge                   bridge    local
-92b0449c8194   compse140_default        bridge    local
-fe91341872c9   host                     host      local
-12ed9c79af88   none                     null      local
+NETWORK ID     NAME                      DRIVER    SCOPE
+f34a0e0c7a90   bridge                    bridge    local
+4113b8edfb33   compse140_loadbalancing   bridge    local
+fe91341872c9   host                      host      local
+12ed9c79af88   none                      null      local

@@ -2,33 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Service1 Interface</title>
+    <title>Nginx Interface</title>
     <script>
       async function sendRequest() {
-        const response = await fetch("/api");
-        if (!response.ok) {
-          alert(`HTTP error! status: ${response.status}`);
-          throw new Error(`HTTP error! status: ${response.status}`);
+        try {
+          const apiResponse = await fetch("/api");
+          if (apiResponse.ok) {
+            const data = await apiResponse.json();
+            document.getElementById("response").innerText = JSON.stringify(
+              data,
+              null,
+              2
+            );
+          } else if (apiResponse.status === 503) {
+            document.getElementById("response").innerText =
+              "Rate limited, try again after 2 seconds.";
+          } else {
+            document.getElementById("response").innerText =
+              "Failed to fetch server data.";
+          }
+        } catch (error) {
+          if (
+            error instanceof TypeError &&
+            error.message === "Failed to fetch"
+          ) {
+            document.getElementById("response").innerText = "Services closed.";
+          } else {
+            document.getElementById("response").innerText = "Error: " + error;
+          }
         }
-
-        const data = await response.json();
-        console.log(data);
-        document.getElementById("response").innerText = JSON.stringify(
-          data,
-          null,
-          2
-        );
       }
 
-      function stopServices() {
-        fetch("/stop", { method: "POST" }).then(() => {
-          alert("Services stopped");
-        });
+      async function stopServices() {
+        try {
+          const stopResponse = await fetch("/stop", { method: "POST" });
+          if (stopResponse.ok) {
+            document.getElementById("response").innerText =
+              "Stopping services call made successfully. Press any button or refresh the page to check the current status.";
+          } else if (stopResponse.status === 503) {
+            document.getElementById("response").innerText =
+              "Rate limited, try again after 2 seconds.";
+          } else {
+            document.getElementById("response").innerText =
+              "Failed to stop services.";
+          }
+        } catch (error) {
+          if (
+            error instanceof TypeError &&
+            error.message === "Failed to fetch"
+          ) {
+            document.getElementById("response").innerText = "Services closed.";
+          } else {
+            document.getElementById("response").innerText = "Error: " + error;
+          }
+        }
       }
     </script>
   </head>
   <body>
-    <h1>Service1 Interface</h1>
+    <h1>Nginx Interface</h1>
     <button onclick="sendRequest()">REQUEST</button>
     <button onclick="stopServices()">STOP</button>
     <pre id="response"></pre>

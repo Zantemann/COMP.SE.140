@@ -5,7 +5,7 @@ rm -f /shared/terminate
 # Function to handle termination signal
 terminate() {
     echo "Stopping services..."
-    # Add any cleanup or shutdown commands here
+    # Kill command for services
     kill -TERM "$child" 2>/dev/null
     exit 0
 }
