@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Service1 Interface</title>
+    <script>
+      async function sendRequest() {
+        const response = await fetch("/api");
+        if (!response.ok) {
+          alert(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        document.getElementById("response").innerText = JSON.stringify(
+          data,
+          null,
+          2
+        );
+      }
+
+      function stopServices() {
+        fetch("/stop", { method: "POST" }).then(() => {
+          alert("Services stopped");
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Service1 Interface</h1>
+    <button onclick="sendRequest()">REQUEST</button>
+    <button onclick="stopServices()">STOP</button>
+    <pre id="response"></pre>
+  </body>
+</html>

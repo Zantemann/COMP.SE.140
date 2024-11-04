@@ -2,6 +2,7 @@ import os
 import subprocess
 import requests
 from flask import Flask, jsonify
+import threading
 
 app = Flask(__name__)
 
@@ -14,7 +15,7 @@ def getSystemData():
     return data
 
 # Route to get data from Service2
-@app.route('/')
+@app.route('/api', methods=['GET'])
 def get_service_data():
     service1_data = getSystemData()
     
@@ -40,6 +41,20 @@ def get_service_data():
     }
 
     return jsonify(response)
+
+@app.route('/stop', methods=['POST'])
+def stop_services():
+    try:
+        # Return a response before stopping the container
+        response = jsonify({'message': 'Stopping services...'})
+        response.status_code = 204
+
+        # Use a separate thread to stop the container after returning the response
+        threading.Thread(target=lambda: subprocess.run(['bash', './down-call.sh'], check=True)).start()
+
+        return response
+    except subprocess.CalledProcessError as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8199)

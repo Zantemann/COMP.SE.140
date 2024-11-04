@@ -9,3 +9,6 @@ Service1 is accessible from the host on port 8199, making it reachable externall
 
 In summary, the containers share the network bridge for internal communication and use port mapping for external access to Service1.
 However, they do not share process space, file systems, or uptime information with the host, ensuring independent operation while maintaining necessary connectivity.
+
+testuser: testuser
+password: testpassword

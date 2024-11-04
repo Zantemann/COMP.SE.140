@@ -2,11 +2,39 @@ services:
   service1:
     build: ./service1
     image: service1_image
-    ports:
-      - "8199:8199"
     depends_on:
       - service2
+    environment:
+      - PORT=8199
+    deploy:
+      replicas: 3
+    volumes:
+      - ./shared-entrypoint.sh:/usr/local/bin/shared-entrypoint.sh
+      - /shared:/shared
+    networks:
+      - loadbalancing
 
   service2:
     build: ./service2
     image: service2_image
+    volumes:
+      - ./shared-entrypoint.sh:/usr/local/bin/shared-entrypoint.sh
+      - /shared:/shared
+    networks:
+      - loadbalancing
+
+  nginx:
+    build: ./nginx
+    image: nginx_image
+    ports:
+      - "8198:8198"
+    depends_on:
+      - service1
+    volumes:
+      - ./shared-entrypoint.sh:/usr/local/bin/shared-entrypoint.sh
+      - /shared:/shared
+    networks:
+      - loadbalancing
+
+networks:
+  loadbalancing:
