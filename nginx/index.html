@@ -22,10 +22,7 @@
               "Failed to fetch server data.";
           }
         } catch (error) {
-          if (
-            error instanceof TypeError &&
-            error.message === "Failed to fetch"
-          ) {
+          if (error instanceof TypeError) {
             document.getElementById("response").innerText = "Services closed.";
           } else {
             document.getElementById("response").innerText = "Error: " + error;
@@ -47,10 +44,7 @@
               "Failed to stop services.";
           }
         } catch (error) {
-          if (
-            error instanceof TypeError &&
-            error.message === "Failed to fetch"
-          ) {
+          if (error instanceof TypeError) {
             document.getElementById("response").innerText = "Services closed.";
           } else {
             document.getElementById("response").innerText = "Error: " + error;
