@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build-services:
+  stage: build
+  script:
+    - docker-compose build
+
+test-services:
+  stage: test
+  script:
+    - docker-compose up -d
+    - docker-compose down
+
+deploy-services:
+  stage: deploy
+  script:
+    - docker-compose up -d
+  only:
+    - project
