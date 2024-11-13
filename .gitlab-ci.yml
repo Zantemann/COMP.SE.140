@@ -6,15 +6,18 @@ stages:
 build-services:
   stage: build
   script:
-    - docker-compose build
+    - docker-compose build --no-cache
 
 test-services:
   stage: test
   script:
     - docker-compose up -d
     - sleep 30
-    - cd ./tests && npm install && npm test
-    - cd .. && docker-compose down
+    - cd ./tests
+    - npm install
+    - npm test
+    - cd ..
+    - docker-compose down
 
 deploy-services:
   stage: deploy
