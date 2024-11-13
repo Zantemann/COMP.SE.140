@@ -23,13 +23,25 @@ services:
     networks:
       - loadbalancing
 
+  api-gateway:
+    build: ./api-gateway
+    image: api_gateway_image
+    environment:
+      - PORT=8198
+    volumes:
+      - ./shared-entrypoint.sh:/usr/local/bin/shared-entrypoint.sh
+      - /shared:/shared
+    networks:
+      - loadbalancing
+
   nginx:
     build: ./nginx
     image: nginx_image
     ports:
-      - "8198:8198"
+      - "8197:8197"
     depends_on:
       - service1
+      - api-gateway
     volumes:
       - ./shared-entrypoint.sh:/usr/local/bin/shared-entrypoint.sh
       - /shared:/shared

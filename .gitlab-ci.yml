@@ -12,7 +12,8 @@ test-services:
   stage: test
   script:
     - docker-compose up -d
-    - docker-compose down
+    - cd ./tests && npm install && npm test
+    - cd .. && docker-compose down
 
 deploy-services:
   stage: deploy
