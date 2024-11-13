@@ -12,6 +12,7 @@ test-services:
   stage: test
   script:
     - docker-compose up -d
+    - sleep 10
     - cd ./tests && npm install && npm test
     - cd .. && docker-compose down
 
