@@ -14,8 +14,9 @@ test-services:
   script:
     - docker-compose up -d
     - sleep 10
+    - pwd
     - cd tests
-    - npm install
+    - npm ci
     - npm test
     - cd ..
     - docker-compose down
