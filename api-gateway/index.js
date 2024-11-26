@@ -30,7 +30,7 @@ app.put("/state", (req, res) => {
 });
 
 app.get("/state", (req, res) => {
-  res.type("text/plain").send(state);
+  res.status(200).type("text/plain").send(state);
 });
 
 app.get("/request", (req, res) => {
