@@ -10,36 +10,18 @@ app.use(express.text());
 // Write logs
 app.put("/state", (req, res) => {
   const newState = req.body;
-  console.log(req.body);
-  if (!newState) {
-    return res.status(400).type("text/plain").send("State is required");
-  }
 
   if (newState === state) {
-    return res.status(200).type("text/plain").send("State unchanged");
+    return res.status(200).type("text/plain").send(state);
   }
 
   const timestamp = new Date().toISOString();
   runLog.push(`${timestamp}: ${state}->${newState}`);
   state = newState;
 
-  if (newState === "INIT") {
-    // Reset the system to the initial state
-    runLog = [];
-    state = "INIT";
-  } else if (newState === "SHUTDOWN") {
-    // Stop all containers
-    // Implement the logic to stop all containers
-    return res.status(200).type("text/plain").send("System shutting down");
-  }
-
-  res.status(200).type("text/plain").send(`State changed to ${newState}`);
+  res.status(200).type("text/plain").send(newState);
 });
 
-/*app.get("/state", (req, res) => {
-  res.status(200).type("text/plain").send(state);
-});
-*/
 app.get("/request", (req, res) => {
   // Simulate the REQUEST button functionality
   res.type("text/plain").send("Request handled");
