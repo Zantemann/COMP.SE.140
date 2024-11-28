@@ -136,7 +136,7 @@ describe("API route tests", () => {
         });
     });
 
-    it("Should not repond", function (done) {
+    it("Should not respond", function (done) {
       chai.request
         .execute(exposedUrl)
         .get("/state")

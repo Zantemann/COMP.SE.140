@@ -6,7 +6,7 @@
     <script>
       async function sendRequest() {
         try {
-          const apiResponse = await fetch("/api");
+          const apiResponse = await fetch("/request");
           if (apiResponse.ok) {
             const data = await apiResponse.json();
             document.getElementById("response").innerText = JSON.stringify(

@@ -1,8 +1,9 @@
 import os
 import subprocess
 import requests
-from flask import Flask, jsonify
+from flask import Flask, jsonify, Response
 import threading
+import json
 
 app = Flask(__name__)
 
@@ -38,8 +39,9 @@ def get_service_data():
                 'time since last boot': service2_data['uptime']
             }
         }
-
-        return jsonify(response)
+        # Convert the response to a plain text string
+        response_text = json.dumps(response, indent=2)
+        return Response(response_text, mimetype='text/plain')
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

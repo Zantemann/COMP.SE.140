@@ -22,11 +22,6 @@ app.put("/state", (req, res) => {
   res.status(200).type("text/plain").send(newState);
 });
 
-app.get("/request", (req, res) => {
-  // Simulate the REQUEST button functionality
-  res.type("text/plain").send("Request handled");
-});
-
 app.get("/run-log", (req, res) => {
   res.type("text/plain").send(runLog.join("\n"));
 });
