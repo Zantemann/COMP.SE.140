@@ -1,7 +1,19 @@
 stages:
+  - lint
   - build
   - test
   - deploy
+
+lint-services:
+  stage: lint
+  image: node:20.18.0
+  script:
+    - cd tests && npm ci && cd ..
+    - npm run lint --prefix tests
+    - cd service2 && npm ci && cd ..
+    - npm run lint --prefix service2
+    - cd api-gateway && npm ci && cd ..
+    - npm run lint --prefix api-gateway
 
 build-services:
   stage: build
@@ -12,9 +24,10 @@ test-services:
   stage: test
   script:
     - docker-compose up -d
+    - docker build -t tests-image ./tests --no-cache
     - sleep 10
-    - cd tests && npm ci && npm test
-    - cd .. && docker-compose down
+    - docker run --rm tests-image
+    - docker-compose down
 
 deploy-services:
   stage: deploy

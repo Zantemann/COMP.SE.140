@@ -1,20 +1,22 @@
-const express = require("express");
-const { execSync } = require("child_process");
+const express = require('express');
+const { execSync } = require('child_process');
 const app = express();
 const port = 8200;
 
+// Get system data
 function getSystemData() {
   const data = {};
 
-  data.ip_address = execSync("hostname -I").toString().trim();
-  data.processes = execSync("ps -ax").toString().split("\n");
-  data.disk_space = execSync("df -h /").toString().trim();
-  data.uptime = execSync("uptime -p").toString().trim();
+  data.ip_address = execSync('hostname -I').toString().trim();
+  data.processes = execSync('ps -ax').toString().split('\n');
+  data.disk_space = execSync('df -h /').toString().trim();
+  data.uptime = execSync('uptime -p').toString().trim();
 
   return data;
 }
 
-app.get("/", (req, res) => {
+// System data route
+app.get('/', (req, res) => {
   const data = getSystemData();
   res.json(data);
 });

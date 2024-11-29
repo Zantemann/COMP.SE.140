@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Nginx Interface</title>
     <script>
+      // Get system information
       async function sendRequest() {
         try {
           const apiResponse = await fetch("/request");
@@ -30,6 +31,7 @@
         }
       }
 
+      // Stop services
       async function stopServices() {
         try {
           const stopResponse = await fetch("/stop", { method: "POST" });
