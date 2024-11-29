@@ -8,11 +8,9 @@ lint-services:
   stage: lint
   image: node:20.18.0
   script:
-    - cd tests && npm ci && cd ..
+    - npm ci
     - npm run lint --prefix tests
-    - cd service2 && npm ci && cd ..
     - npm run lint --prefix service2
-    - cd api-gateway && npm ci && cd ..
     - npm run lint --prefix api-gateway
 
 build-services:
